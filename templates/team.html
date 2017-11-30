@@ -1,0 +1,227 @@
+{% load staticfiles %} {% block content %}
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://getbootstrap.com/docs/3.3/examples/cover/ -->
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Basketball.png/170px-Basketball.png">
+
+  <title>{{team.abbreviation}}</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <link href="{% static 'ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'team.css' %}" rel="stylesheet">
+
+  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+  <script src="{% static 'ie-emulation-modes-warning.js' %}"></script>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body onload="addList()">
+
+  <div class="site-wrapper">
+    <br>
+    <br>
+    <div class="row">
+
+      <div class="col-sm-offset-1 col-sm-5" style="text-align: center; align-content:center;">
+        <div class="square">
+            <img src="{{team.logo}}">
+        </div>
+        </div>
+        <div class="col-sm-4 namebox">
+        <h1>{{team.city}} {{team.mascot}} ({{team.abbreviation}})</h1>
+        <div>Founded: {{team.founded}}</div>
+        <div>Championships: {{team.championships}}</div>
+      </div>
+    </div>
+      <div class="row">
+          <div class="col-lg-1"></div>
+          <div class="col-lg-2">
+        <select id="yearList" title="Year" class="form-control">
+        </select>
+        <button id="yearSelected" class="btn btn-default" type="button" onclick="selectYear()">Select</button>
+          </div>
+      </div>
+    <div class="row">
+      <div class="col-sm-offset-1 col-sm-10">
+        <div class="span3">
+          <h3>{{year}} Statistics</h3>
+          <div class="statstable">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Player</th>
+                  <th>Position</th>
+                  <th>PER</th>
+                  <th>Win Shares</th>
+                  <th>Team</th>
+                  <th>Games</th>
+                  <th>Games Started</th>
+                  <th>Minutes Played</th>
+                  <th>PER</th>
+                  <th>tspct</th>
+                  <th>threepar</th>
+                  <th>ftr</th>
+                  <th>orbpct</th>
+                  <th>drbpct</th>
+                  <th>trbpct</th>
+                  <th>aspct</th>
+                  <th>stlpct</th>
+                  <th>blkpct</th>
+                  <th>tovpct</th>
+                  <th>usgpct</th>
+                  <th>ows</th>
+                  <th>dws</th>
+                  <th>ws</th>
+                  <th>ws_48</th>
+                  <th>obpm</th>
+                  <th>dbpm</th>
+                  <th>bpm</th>
+                  <th>vorp</th>
+                  <th>fg</th>
+                  <th>fga</th>
+                  <th>fgpct</th>
+                  <th>threep</th>
+                  <th>threepa</th>
+                  <th>threeppct</th>
+                  <th>twop</th>
+                  <th>twopa</th>
+                  <th>twoppct</th>
+                  <th>efgpct</th>
+                  <th>ft</th>
+                  <th>fta</th>
+                  <th>ftpct</th>
+                  <th>orb</th>
+                  <th>drb</th>
+                  <th>trb</th>
+                  <th>ast</th>
+                  <th>stl</th>
+                  <th>blk</th>
+                  <th>tov</th>
+                  <th>pf</th>
+                  <th>Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for stat in stats %}
+                <tr class="clickable-row" data-href="players/{{stat.player.first_name}}-{{stat.player.last_name}}">
+                  <td>{{stat.player.last_name}}, {{stat.player.first_name}}</td>
+                  <td>{{stat.position}}</td>
+                  <td>{{stat.per}}</td>
+                  <td>{{stat.ws}}</td>
+                  <td>{{stat.team}}</td>
+                  <td>{{stat.g}}</td>
+                  <td>{{stat.gs}}</td>
+                  <td>{{stat.mp}}</td>
+                  <td>{{stat.per}}</td>
+                  <td>{{stat.tspct}}</td>
+                  <td>{{stat.threepar}}</td>
+                  <td>{{stat.ftr}}</td>
+                  <td>{{stat.orbpct}}</td>
+                  <td>{{stat.drbpct}}</td>
+                  <td>{{stat.trbpct}}</td>
+                  <td>{{stat.astpct}}</td>
+                  <td>{{stat.stlpct}}</td>
+                  <td>{{stat.blkpct}}</td>
+                  <td>{{stat.tovpct}}</td>
+                  <td>{{stat.usgpct}}</td>
+                  <td>{{stat.ows}}</td>
+                  <td>{{stat.dws}}</td>
+                  <td>{{stat.ws}}</td>
+                  <td>{{stat.ws_48}}</td>
+                  <td>{{stat.obpm}}</td>
+                  <td>{{stat.dbpm}}</td>
+                  <td>{{stat.bpm}}</td>
+                  <td>{{stat.vorp}}</td>
+                  <td>{{stat.fg}}</td>
+                  <td>{{stat.fga}}</td>
+                  <td>{{stat.fgpct}}</td>
+                  <td>{{stat.threep}}</td>
+                  <td>{{stat.threepa}}</td>
+                  <td>{{stat.threeppct}}</td>
+                  <td>{{stat.twop}}</td>
+                  <td>{{stat.twopa}}</td>
+                  <td>{{stat.twoppct}}</td>
+                  <td>{{stat.efgpct}}</td>
+                  <td>{{stat.ft}}</td>
+                  <td>{{stat.fta}}</td>
+                  <td>{{stat.ftpct}}</td>
+                  <td>{{stat.orb}}</td>
+                  <td>{{stat.drb}}</td>
+                  <td>{{stat.trb}}</td>
+                  <td>{{stat.ast}}</td>
+                  <td>{{stat.stl}}</td>
+                  <td>{{stat.blk}}</td>
+                  <td>{{stat.tov}}</td>
+                  <td>{{stat.pf}}</td>
+                  <td>{{stat.pts}}</td>
+                </tr>
+                {% endfor %}.
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static 'ie10-viewport-bug-workaround.js' %}"></script>
+
+      <script>
+          
+        function addList(){
+            var select = document.getElementById("yearList");
+            for(var i = 2017; i >= {{team.founded}}; --i) {
+                var option = document.createElement('option');
+                option.text = option.value = i;
+                select.add(option, 0);
+            }
+            select.value = {{year}}
+         }
+          
+        function selectYear(){
+            var drop = document.getElementById("yearList")
+            var yr = drop.options[drop.selectedIndex].value
+            console.log(yr)
+            window.location.href = ("/teams/{{team.abbreviation}}/year="+yr);
+        }
+          
+        jQuery(document).ready(function($) {
+            $(".clickable-row").click(function() {
+                window.location.href = "/" + $(this).data("href").replace(/\*/i, '');
+            });
+        });
+        
+    </script>
+
+</body>
+
+</html>
+{% endblock %}

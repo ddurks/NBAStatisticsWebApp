@@ -1,0 +1,184 @@
+{% load staticfiles %} {% block content %}
+
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://getbootstrap.com/docs/3.3/examples/cover/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Basketball.png/170px-Basketball.png">
+
+    <title>NBA Stats Explorer</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{% static 'ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'cover.css' %}" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="{% static 'ie-emulation-modes-warning.js' %}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand"></h3>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="/">Tools</a></li>
+                  <li><a href="players/">Players</a></li>
+                  <li><a href="teams/">Teams</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <div class="inner cover">
+            <h1 class="cover-heading">NBA Statistics Explorer</h1>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="input-group">
+                <input id="searchBar" type="text" class="form-control" placeholder="Search for a Player...">
+                <span id="submitSearch" class="input-group-btn">
+                  <a class="btn btn-default" type="button">Submit</a>
+                </span>
+              </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+            <div class="col-lg-1"></div>
+            <div class="col-lg-4">
+                <select id="teamList" title="Team" class="form-control">
+                    <option>ATL</option>
+                    <option>BKN</option>
+                    <option>BOS</option>
+                    <option>CHA</option>
+                    <option>CHI</option>
+                    <option>CLE</option>
+                    <option>DAL</option>
+                    <option>DEN</option>
+                    <option>DET</option>
+                    <option>GSW</option>
+                    <option>HOU</option>
+                    <option>IND</option>
+                    <option>LAC</option>
+                    <option>LAL</option>
+                    <option>MEM</option>
+                    <option>MIA</option>
+                    <option>MIL</option>
+                    <option>MIN</option>
+                    <option>NOP</option>
+                    <option>NYK</option>
+                    <option>OKC</option>
+                    <option>ORL</option>
+                    <option>PHI</option>
+                    <option>PHX</option>
+                    <option>POR</option>
+                    <option>SAC</option>
+                    <option>SAS</option>
+                    <option>TOR</option>
+                    <option>UTA</option>
+                    <option>WAS</option>
+                </select>
+            </div>
+              <div class="col-lg-1">
+                <button id="teamSelected" class="btn btn-default" type="button">Select</button>
+              </div>
+          </div>
+            <div class="row">
+              <div class="col-lg-12">
+                  <div class="statstable">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Height</th>
+                          <th>Weight</th>
+                          <th>College</th>
+                            <th>Hometown</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for player in potential_players %}
+                        <tr class="clickable-row" data-href="players/{{player.first_name}}-{{player.last_name}}">
+                          <td>{{player.first_name}} {{player.last_name}}</td>
+                          <td>{{player.height}} cm</td>
+                          <td>{{player.weight}} kg</td>
+                            <td>{{player.college}}</td>
+                            <td>{{player.city}}, {{player.state}}</td>
+                        </tr>
+                        {% endfor %}.
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+          </div>
+        </div><!-- /.row -->
+
+       </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static 'ie10-viewport-bug-workaround.js' %}"></script>
+  
+    <script>
+
+        $(document).ready(function(){
+            $('#submitSearch').click(function(e) {  
+                var inputvalue = $("#searchBar").val();
+                var name = inputvalue.split(" ");
+                if(name.length==1){
+                    name.push("");
+                }
+                name[1].replace(/\*/i, '');
+                window.location.href = ("search="+name[0]+"-"+name[1]);
+                
+            });
+        });
+        
+        jQuery(document).ready(function($) {
+            $(".clickable-row").click(function() {
+                window.location.href = $(this).data("href").replace(/\*/i, '');
+            });
+        });
+        
+        jQuery(document).ready(function($) {
+            $("#teamSelected").click(function() {
+                var selected = $('#teamList option:selected').text();
+                window.location.href = ("/teams/"+selected+"/year=2017");
+            });
+        });
+        
+    </script> 
+      
+</body>
+</html>
+{% endblock %}

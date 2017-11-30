@@ -1,0 +1,15 @@
+body {
+    background-color: lightgrey;
+}
+
+img {
+    display:block
+    max-height: 200px;
+    max-width: 175px;
+    width: auto;
+    height: auto;
+}
+
+.statstable {
+    overflow: scroll;
+}
