@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles %} {% block content %}
 
 <!DOCTYPE html>
 <!-- saved from url=(0049)https://getbootstrap.com/docs/3.3/examples/cover/ -->
@@ -59,7 +59,11 @@
           </div>
 
           <div class="scroll-list">
-            <div class="pre-scrollable"></div>
+            <div class="pre-scrollable">
+                {% for player in players %}
+                    
+                {% endfor %}.
+            </div>
           </div>
 
           <div class="mastfoot">
@@ -84,3 +88,4 @@
     <script src="{% static 'ie10-viewport-bug-workaround.js' %}"></script>
   
 </body></html>
+{% endblock %}

@@ -21,7 +21,7 @@ from nbastats import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home),
-    url(r'^teams/$', views.TeamsView.as_view(), name="Teams"),
+    url(r'^teams/$', views.viewAllTeams),
     url(r'^players/$', views.PlayersView.as_view(), name="Players"),
     url(r'^players/([a-zA-Z]*-[a-zA-Z]*)/$', views.viewPlayer),
     url(r'^search=([a-zA-Z]*-[a-zA-Z]*)$', views.search),

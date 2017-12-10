@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles %} {% block content %}
 
 <!DOCTYPE html>
 <!-- saved from url=(0049)https://getbootstrap.com/docs/3.3/examples/cover/ -->
@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Basketball.png/170px-Basketball.png">
 
-    <title>Teams</title>
+    <title>Current NBA Teams</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
@@ -20,7 +20,7 @@
         <link href="{% static 'ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
     
         <!-- Custom styles for this template -->
-        <link href="{% static 'cover.css' %}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'cover.css' %}" rel="stylesheet">
     
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
         <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -55,17 +55,17 @@
           </div>
 
           <div class="inner cover">
-            <h1 class="cover-heading">Teams</h1>
+            <h1 class="cover-heading">Current NBA Teams</h1>
           </div>
 
-          <div class="scroll-list">
-            <div class="pre-scrollable"></div>
-          </div>
-
-          <div class="mastfoot">
-            <div class="inner">
-              <p>Created By Web Apps Team 03: David Durkin, Chris Beaufils, and Matt Reilly.</p>
-            </div>
+          <div>
+                {% for team in teams %}
+                    <div class="square">
+                        <a href="/teams/{{team.abbreviation}}/year=2017">
+                            <img src="{{team.logo}}">
+                        </a>
+                    </div>
+                {% endfor %}.
           </div>
 
         </div>
@@ -82,5 +82,38 @@
     <script src="{% static 'bootstrap.min.js' %}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{% static 'ie10-viewport-bug-workaround.js' %}"></script>
+      
+    <script>
+
+        $('.square img').each(function() {
+            var maxWidth = 100; // Max width for the image
+            var maxHeight = 100;    // Max height for the image
+            var ratio = 0;  // Used for aspect ratio
+            var width = $(this).width();    // Current image width
+            var height = $(this).height();  // Current image height
+
+            // Check if the current width is larger than the max
+            if(width > maxWidth){
+                ratio = maxWidth / width;   // get ratio for scaling image
+                $(this).css("width", maxWidth); // Set new width
+                $(this).css("height", height * ratio);  // Scale height based on ratio
+                height = height * ratio;    // Reset height to match scaled image
+            }
+
+            var width = $(this).width();    // Current image width
+            var height = $(this).height();  // Current image height
+
+            // Check if current height is larger than max
+            if(height > maxHeight){
+                ratio = maxHeight / height; // get ratio for scaling image
+                $(this).css("height", maxHeight);   // Set new height
+                $(this).css("width", width * ratio);    // Scale width based on ratio
+                width = width * ratio;    // Reset width to match scaled image
+            }
+        });
+
+      
+    </script>
   
 </body></html>
+{% endblock %}

@@ -53,8 +53,9 @@ def viewTeam(request, abbrev, yr):
     return render(request, 'team.html', context)
 
 
-class TeamsView(TemplateView):
-    template_name = "teams.html"
+def viewAllTeams(request):
+    context = { 'teams' : NbastatsTeaminfo.objects.all().order_by("city") }
+    return render(request, 'teams.html', context)
 
 class PlayersView(TemplateView):
     template_name = "players.html"
