@@ -37,12 +37,12 @@
 
 <body onload="addList()">
 
-  <div class="site-wrapper">
+  <div class="site-wrapper" style="margin: 15px">
     <br>
     <br>
     <div class="row">
 
-      <div class="col-sm-offset-1 col-sm-5" style="text-align: center; align-content:center;">
+      <div class="col-sm-offset-1 col-sm-5">
         <div class="square">
             <img src="{{team.logo}}">
         </div>
@@ -53,14 +53,18 @@
         <div>Championships: {{team.championships}}</div>
       </div>
     </div>
+    <br />
+
       <div class="row">
-          <div class="col-lg-1"></div>
-          <div class="col-lg-2">
+<!--           <div class="col-lg-1"></div>
+ -->    <div class="col-lg-2">
         <select id="yearList" title="Year" class="form-control">
         </select>
         <button id="yearSelected" class="btn btn-default" type="button" onclick="selectYear()">Select</button>
           </div>
       </div>
+      <br />
+
     <div class="row">
       <div class="col-sm-offset-1 col-sm-10">
         <div class="span3">

@@ -109,7 +109,7 @@
             <div class="row">
               <div class="col-lg-12">
                   <div class="statstable">
-                    <table class="table">
+                    <table class="table" style="background-color:rgba(0, 0, 0, 0.5);">
                       <thead>
                         <tr>
                           <th>Name</th>
@@ -121,7 +121,7 @@
                       </thead>
                       <tbody>
                         {% for player in potential_players %}
-                        <tr class="clickable-row" data-href="players/{{player.first_name}}-{{player.last_name}}">
+                        <tr class="clickable-row" data-href="players/{{player.first_name}}-{{player.last_name}}/stat=fgpct">
                           <td>{{player.first_name}} {{player.last_name}}</td>
                           <td>{{player.height}} cm</td>
                           <td>{{player.weight}} kg</td>
@@ -166,7 +166,7 @@
         
         jQuery(document).ready(function($) {
             $(".clickable-row").click(function() {
-                window.location.href = $(this).data("href").replace(/\*/i, '');
+                window.location.href = ($(this).data("href").replace(/\*/i, ''))
             });
         });
         

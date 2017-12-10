@@ -7,6 +7,8 @@ from django.template import Context, loader
 from django.views.generic import TemplateView
 from django.db.models import Q
 from models import NbastatsPlayerinfo, NbastatsSeasonstats, NbastatsTeaminfo
+from graphos.sources.simple import SimpleDataSource
+from graphos.renderers.yui import LineChart
 
 def home(request):
     context = { 'potential_players' : None }
@@ -25,7 +27,7 @@ def search(request, searchRequest):
     context = { 'potential_players' : players }
     return render(request, 'home.html', context)
 
-def viewPlayer(request, name):
+def viewPlayer(request, name, statIn):
     fullname = name.split("-")
     if(len(fullname)==1):
         fullname.add("")
@@ -39,8 +41,21 @@ def viewPlayer(request, name):
         _player = player[0]
     
     stats = _player.nbastatsseasonstats_set.all().order_by("year")
+    
+    data =  [
+            ['Year', 'Stat'],
+        ]
+    
+    for stat in stats:
+        temp = [stat.year, getattr(stat, statIn)]
+        data.append(temp)
         
-    context = { 'player' : _player, 'stats' : stats }
+    # DataSource object
+    data_source = SimpleDataSource(data=data)
+    # Chart object
+    chart = LineChart(data_source)
+    
+    context = { 'player' : _player, 'stats' : stats, 'chart' : chart, 'statistic' : statIn }
 
     return render(request, 'player.html', context)
 
