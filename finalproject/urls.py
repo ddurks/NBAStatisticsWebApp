@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home),
     url(r'^teams/$', views.viewAllTeams),
-    url(r'^players/$', views.PlayersView.as_view(), name="Players"),
+    url(r'^players/([a-z])$', views.viewAllPlayers),
     url(r'^players/([a-zA-Z]*-[a-zA-Z]*)/stat=([a-zA-Z]*)$', views.viewPlayer),
     url(r'^search=([a-zA-Z]*-[a-zA-Z]*)$', views.search),
     url(r'^teams/([A-Z][A-Z][A-Z])/year=([0-9][0-9][0-9][0-9])$', views.viewTeam),

@@ -45,8 +45,24 @@ def viewPlayer(request, name, statIn):
     data =  [
             ['Year', 'Stat'],
         ]
+
+    bestSeasonArray = []
     
     for stat in stats:
+        PERVAL = ( stat.per * 0.3 )
+        PPGVAL = ( stat.pts/stat.g * 0.3 )
+        WS = ( stat.ws * 0.3 )
+        EFG = stat.efgpct
+        RBVAL = ( (stat.trb/stat.g) * 0.2)
+        ASTVAL = ( (stat.ast/stat.g) * 0.2)
+        STLVAL = ( (stat.stl/stat.g) * 0.1)
+        BLKVAL = ( (stat.blk/stat.g) * 0.1)
+        TOVVAL = ( (stat.tov/stat.g) * 0.1)
+        BESTSEASON = PERVAL + PPGVAL + WS + EFG + RBVAL + ASTVAL + STLVAL + BLKVAL - TOVVAL
+
+        analysis = { 'year': stat.year, 'season': BESTSEASON, }
+        bestSeasonArray.append(analysis)
+
         temp = [stat.year, getattr(stat, statIn)]
         data.append(temp)
         
@@ -54,10 +70,16 @@ def viewPlayer(request, name, statIn):
     data_source = SimpleDataSource(data=data)
     # Chart object
     chart = LineChart(data_source)
+    # Sort season analysis array by best season
+    bestSeasonArray.sort(key=lambda x: x['season'])
+
+
     
-    context = { 'player' : _player, 'stats' : stats, 'chart' : chart, 'statistic' : statIn }
+    context = { 'player' : _player, 'stats' : stats, 'chart' : chart, 'statistic' : statIn, 'bestseason' : bestSeasonArray }
 
     return render(request, 'player.html', context)
+
+
 
 def viewTeam(request, abbrev, yr):
     team = NbastatsTeaminfo.objects.get(abbreviation=abbrev)
@@ -72,5 +94,8 @@ def viewAllTeams(request):
     context = { 'teams' : NbastatsTeaminfo.objects.all().order_by("city") }
     return render(request, 'teams.html', context)
 
-class PlayersView(TemplateView):
-    template_name = "players.html"
+def viewAllPlayers(request, letter):
+    players = NbastatsPlayerinfo.objects.filter(last_name__startswith=letter).order_by("last_name")
+        
+    context = { 'players' : players }
+    return render(request, 'players.html', context)

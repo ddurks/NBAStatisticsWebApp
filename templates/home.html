@@ -47,7 +47,7 @@
               <nav>
                 <ul class="nav masthead-nav">
                   <li class="active"><a href="/">Tools</a></li>
-                  <li><a href="players/">Players</a></li>
+                  <li><a href="players/a">Players</a></li>
                   <li><a href="teams/">Teams</a></li>
                 </ul>
               </nav>
@@ -109,7 +109,7 @@
             <div class="row">
               <div class="col-lg-12">
                   <div class="statstable">
-                    <table class="table" style="background-color:rgba(0, 0, 0, 0.5);">
+                    <table class="table">
                       <thead>
                         <tr>
                           <th>Name</th>
@@ -165,15 +165,14 @@
         });
         
         jQuery(document).ready(function($) {
-            $(".clickable-row").click(function() {
-                window.location.href = ($(this).data("href").replace(/\*/i, ''))
-            });
-        });
-        
-        jQuery(document).ready(function($) {
             $("#teamSelected").click(function() {
                 var selected = $('#teamList option:selected').text();
                 window.location.href = ("/teams/"+selected+"/year=2017");
+            });
+        });
+        jQuery(document).ready(function($) {
+            $(".clickable-row").click(function() {
+                window.location.href = "/" + $(this).data("href").replace(/\*/i, '');
             });
         });
         
