@@ -24,4 +24,6 @@ We have organized our code as follows.
 * web_scraping - folder containing image scraping scripts for player and team images
     
 The algorithm used to determine the best season for each player is as follows:
-BESTSEASON = (PER * 0.3) + (PPG * 0.3) + (winshares * 0.3) + effectiveFieldGoal% + (RBD/game * 0.2) + (AST/game * 0.2) + (STL/game * 0.1) + (BLK/game * 0.1) - (TOV/game * 0.1)
+
+
+`BESTSEASON = (PER * 0.3) + (PPG * 0.3) + (winshares * 0.3) + effectiveFieldGoal% + (RBD/game * 0.2) + (AST/game * 0.2) + (STL/game * 0.1) + (BLK/game * 0.1) - (TOV/game * 0.1)`
