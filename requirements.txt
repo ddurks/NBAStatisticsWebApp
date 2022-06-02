@@ -10,7 +10,7 @@ colorama==0.2.5
 configobj==4.7.2
 django-graphos==0.3.41
 gyp==0.1
-html5lib==0.999
+html5lib==0.99999999
 nodeenv==1.2.0
 pbr==3.1.1
 psycopg2==2.7.3.2
